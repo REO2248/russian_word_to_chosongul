@@ -5,6 +5,28 @@ russian_other_letters = ["й", "ь", "ъ"]
 
 russian_voiceless_consonants = ["п", "ф", "к", "т", "ш", "с", "х", "ц", "ч", "щ"]
 
+korean_consonants = [
+    'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ',
+    'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ',
+    'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ',
+    'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+]
+korean_vowel = [
+    'ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ',
+    'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ',
+    'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ',
+    'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ',
+    'ㅣ'
+]
+korean_patchim = [
+    '', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ',
+    'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ',
+    'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ',
+    'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ',
+    'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ',
+    'ㅌ', 'ㅍ', 'ㅎ'
+]
+
 def vowel_jamoize(word, number:int):
     if word[number] == "а":
         return "ㅏ"
@@ -295,6 +317,34 @@ def jamoize(word):
     word = "".join(list_for_word)
     return word
 
+def jamo_to_text(text):
+    for i in range(len(text)):
+        try:
+            if text[i] in korean_vowel:
+                if i==0:
+                    text= "ㅇ"+text
+                if text[i-1] in korean_vowel:
+                    text = text[:i]+"ㅇ"+text[i:]
+        except ValueError:
+            pass
+    for i in range(len(korean_consonants)):
+        for j in range(len(korean_vowel)):
+            text = text.replace(
+                korean_consonants[i]+korean_vowel[j],
+                chr(i * 21 * 28 + j * 28 + 0xAC00)
+            )
+    for i in range(len(korean_consonants)):
+        for j in range(len(korean_vowel)):
+            for k in range(len(korean_patchim)):
+                text = text.replace(
+                    chr(i * 21 * 28 + j * 28 + 0xAC00)+korean_patchim[k],
+                    chr(i * 21 * 28 + j * 28 + k + 0xAC00)
+                )
+    return text
+
+def chosongulize(text):
+    return jamo_to_text(jamoize(text))
 
 if __name__ == "__main__":
-    print(jamoize("страна"))
+    while True:
+        print(chosongulize(input("> ")))

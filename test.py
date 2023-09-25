@@ -8,11 +8,12 @@ class Test(unittest.TestCase):
     def test_(self):
         """test method
         """
-        self.assertEqual("ㅁㅗㅑ", main.jamoize("моя"))
-        self.assertEqual("ㅂㅜㅈㅔㄸㅡ", main.jamoize("будет"))
-        self.assertEqual("ㄸㅢ", main.jamoize("ты"))
-        self.assertEqual("ㄷㅏ", main.jamoize("да"))
-        self.assertEqual("ㄹㅠㅂㅣㅁㅏㅑ", main.jamoize("любимая"))
+        self.assertEqual("모야", main.chosongulize("моя"))
+        self.assertEqual("얌", main.chosongulize("ямм"))
+        self.assertEqual("부제뜨", main.chosongulize("будет"))
+        self.assertEqual("띄", main.chosongulize("ты"))
+        self.assertEqual("다", main.chosongulize("да"))
+        self.assertEqual("류비마야", main.chosongulize("любимая"))
 
 
 
