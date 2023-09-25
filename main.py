@@ -380,7 +380,7 @@ def jamo_to_text(text):
             if text[i] in korean_vowel:
                 if i==0:
                     text= "ㅇ"+text
-                if text[i-1] in korean_vowel:
+                elif text[i-1] in korean_vowel:
                     text = text[:i]+"ㅇ"+text[i:]
         except ValueError:
             pass
