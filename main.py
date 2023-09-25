@@ -1,4 +1,7 @@
 russian_vowels = ["а", "э", "о", "у", "ы", "я", "е", "ё", "ю", "и"]
+russian_consonants = ["б", "в", "г", "д", "ж", "з", "к", "л", "м",
+                      "н", "п", "р", "с", "т", "ф", "х", "ц", "ч", "ш", "щ"]
+russian_other_letters = ["й", "ь", "ъ"]
 
 def vowel_jamoize(word, number:int):
     if word[number] == "а":
@@ -21,21 +24,56 @@ def vowel_jamoize(word, number:int):
         return "ㅣ"
     elif word[number] == "е":
         try:
-            if (word[number-1] in russian_vowels
+            #語頭
+            if number == 0:
+                return "ㅖ"
+            #母音字とй, ь, ъの後ろ
+            elif (word[number-1] in russian_vowels
                 or word[number+1] == "й"
                 or word[number+1] == "ь"
                 or word[number+1] == "ъ"):
                 return "ㅖ"
+            #その他
             else:
                 return "ㅔ"
         except IndexError:
             return "ㅔ"
     else:
-        return word[number]
+        raise ValueError("Not a vowel")
 
 def consonant_jamoize(word, number:int):
-    pass
-
+    #м
+    if word[number] == "м":
+        try:
+            #母音字とьの前
+            if (word[number+1] in russian_vowels
+            or word[number+1] == "ь"):
+                return "ㅁ"#ㅁ-
+        except IndexError:
+            pass
+        try:
+            #子音字前の語頭
+            if (number == 0
+                and word[number+1] in russian_consonants):
+                return "ㅁㅡ"#므
+        except IndexError:
+            pass
+        try:
+            #лの前
+            if word[number+1] == "л":
+                return "ㅁㅡ"#므
+        except IndexError:
+            pass
+        try:
+            #м後ろの語末
+            if (number == len(word)-1
+                and word[number-1] == "м"):
+                return "" #∅
+        except IndexError:
+            pass
+        return "ㅁ"
+    else:
+        raise ValueError("Not a consonant")
 
 def jamoize(word):
     list_for_word = []
@@ -43,12 +81,19 @@ def jamoize(word):
         list_for_word.append(char)
 
     for i in range(len(word)):
-        list_for_word[i] = vowel_jamoize(word, i)
-
+        try:
+            list_for_word[i] = vowel_jamoize(word, i)
+        except ValueError:
+            pass
+    for i in range(len(word)):
+        try:
+            list_for_word[i] = consonant_jamoize(word, i)
+        except ValueError:
+            pass
     word = "".join(list_for_word)
     return word
 
 
 
 print(jamoize("моя"))
-print(jamoize("земля"))
+print(jamoize("будет"))
