@@ -76,7 +76,7 @@ def consonant_jamoize(word, number:int):
         #その他
         return "ㅁ"#-ㅁ
     #д
-    if word[number] == "д":
+    elif word[number] == "д":
         try:
             #а, о, у, ъ, ы, эの前
             if (word[number+1] == "а"
@@ -103,7 +103,7 @@ def consonant_jamoize(word, number:int):
             pass
         return "ㄷㅡ" #드
     #б
-    if word[number] == "б":
+    elif word[number] == "б":
         try:
             #母音字(ъ, ь含む)の前
             if (word[number+1] in russian_vowels
@@ -122,7 +122,7 @@ def consonant_jamoize(word, number:int):
         #その他
         return "브"#브
     #т
-    if word[number] == "т":
+    elif word[number] == "т":
         try:
             #а, о, у, ъ, ы, эの前
             if (word[number+1] == "а"
@@ -149,7 +149,7 @@ def consonant_jamoize(word, number:int):
         #その他
         return "ㄸㅡ" #뜨
     #л
-    if word[number] == "л":
+    elif word[number] == "л":
         try:
             #語頭
             if number == 0:
@@ -205,7 +205,38 @@ def consonant_jamoize(word, number:int):
             pass
         #その他
         return "ㄹ"
-    
+    #н
+    elif word[number] == "н":
+        try:
+            #子音字の前
+            if (number == 0
+                and word[number+1] in russian_consonants):
+                return "느" #느
+        except IndexError:
+            pass
+        try:
+            #母音字の前
+            if word[number+1] in russian_vowels:
+                return "ㄴ" #ㄴ-
+        except IndexError:
+            pass
+        try:
+            #母音字と母音字前のьの間
+            if (word[number-1] in russian_vowels
+                and word[number+1] == "ь"
+                and word[number+2] in russian_vowels):
+                return "ㄴ" #ㄴ-
+        except IndexError:
+            pass
+        try:
+            #нの後の語末
+            if (number == len(word)-1
+                and word[number-1] == "н"):
+                return "" #∅
+        except IndexError:
+            pass
+        #その他
+        return "ㄴ" #-ㄴ
 
     else:
         raise ValueError("Not a consonant")
@@ -231,4 +262,4 @@ def jamoize(word):
 
 
 if __name__ == "__main__":
-    print(jamoize(""))
+    print(jamoize("наша"))
