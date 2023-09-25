@@ -385,6 +385,17 @@ def consonant_jamoize(word, number:int):
             pass
         #その他
         return "프"#프
+    #х
+    elif word[number] == "х":
+        try:
+            #母音字とьの前
+            if (word[number+1] in russian_vowels
+            or word[number+1] == "ь"):
+                return "ㅎ"#ㅎ-
+        except IndexError:
+            pass
+        #その他
+        return "흐"#흐
     else:
         raise ValueError("Not a consonant")
 
