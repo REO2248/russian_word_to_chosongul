@@ -3,6 +3,8 @@ russian_consonants = ["б", "в", "г", "д", "ж", "з", "к", "л", "м",
                       "н", "п", "р", "с", "т", "ф", "х", "ц", "ч", "ш", "щ"]
 russian_other_letters = ["й", "ь", "ъ"]
 
+russian_voiceless_consonants = ["п", "ф", "к", "т", "ш", "с", "х", "ц", "ч", "щ"]
+
 def vowel_jamoize(word, number:int):
     if word[number] == "а":
         return "ㅏ"
@@ -96,10 +98,29 @@ def consonant_jamoize(word, number:int):
             elif (word[number+1] == "т"
                 or word[number+1] == "ц"
                 or word[number+1] == "ч"):
-                return ""#∅
+                return "" #∅
         except IndexError:
             pass
         return "ㄷㅡ" #드
+    #б
+    if word[number] == "б":
+        try:
+            #母音字(ъ, ь含む)の前
+            if (word[number+1] in russian_vowels
+                or word[number+1] == "ъ"
+                or word[number+1] == "ь"):
+                return "ㅂ"#ㅂ-
+        except IndexError:
+            pass
+        try:
+            #母音字と無声音の字の間
+            if (word[number+1] in russian_vowels
+                and word[number+2] in russian_voiceless_consonants):
+                return "ㅂ"#-ㅂ
+        except IndexError:
+            pass
+        #その他
+        return "브"#브
 
     else:
         raise ValueError("Not a consonant")
