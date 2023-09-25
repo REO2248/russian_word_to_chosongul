@@ -57,13 +57,13 @@ def consonant_jamoize(word, number:int):
             #子音字前の語頭
             if (number == 0
                 and word[number+1] in russian_consonants):
-                return "ㅁㅡ"#므
+                return "므"#므
         except IndexError:
             pass
         try:
             #лの前
             if word[number+1] == "л":
-                return "ㅁㅡ"#므
+                return "므"#므
         except IndexError:
             pass
         try:
@@ -101,7 +101,7 @@ def consonant_jamoize(word, number:int):
                 return "" #∅
         except IndexError:
             pass
-        return "ㄷㅡ" #드
+        return "드" #드
     #б
     elif word[number] == "б":
         try:
@@ -147,7 +147,7 @@ def consonant_jamoize(word, number:int):
         except IndexError:
             pass
         #その他
-        return "ㄸㅡ" #뜨
+        return "뜨" #뜨
     #л
     elif word[number] == "л":
         try:
@@ -261,7 +261,18 @@ def consonant_jamoize(word, number:int):
             pass
         #その他
         return "르"#르 一応
-
+    #с
+    elif word[number] == "с":
+        try:
+            #母音字とъ, ьの前
+            if (word[number+1] in russian_vowels
+                or word[number+1] == "ъ"
+                or word[number+1] == "ь"):
+                return "ㅆ" #ㅆ-
+        except IndexError:
+            pass
+        #その他
+        return "쓰" #쓰
     else:
         raise ValueError("Not a consonant")
 
@@ -286,4 +297,4 @@ def jamoize(word):
 
 
 if __name__ == "__main__":
-    print(jamoize("русь"))
+    print(jamoize("страна"))
