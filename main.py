@@ -121,6 +121,33 @@ def consonant_jamoize(word, number:int):
             pass
         #その他
         return "브"#브
+    #т
+    if word[number] == "т":
+        try:
+            #а, о, у, ъ, ы, эの前
+            if (word[number+1] == "а"
+                or word[number+1] == "о"
+                or word[number+1] == "у"
+                or word[number+1] == "ъ"
+                or word[number+1] == "ы"
+                or word[number+1] == "э"):
+                return "ㄸ"#ㄸ-
+            #е, ё, и, ю, я, ьの前
+            elif (word[number+1] == "е"
+                or word[number+1] == "ё"
+                or word[number+1] == "и"
+                or word[number+1] == "ю"
+                or word[number+1] == "я"
+                or word[number+1] == "ь"):
+                return "ㅉ"#ㅉ-
+            #ц, чの前
+            elif (word[number+1] == "ц"
+                or word[number+1] == "ч"):
+                return "" #∅
+        except IndexError:
+            pass
+        #その他
+        return "ㄸㅡ" #뜨
 
     else:
         raise ValueError("Not a consonant")
