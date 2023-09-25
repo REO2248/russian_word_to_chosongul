@@ -1,7 +1,6 @@
 import main
 import unittest
 
-import unittest
 
 
 class Test(unittest.TestCase):
@@ -11,6 +10,9 @@ class Test(unittest.TestCase):
         """
         self.assertEqual("ㅁㅗㅑ", main.jamoize("моя"))
         self.assertEqual("ㅂㅜㅈㅔㄸㅡ", main.jamoize("будет"))
+        self.assertEqual("ㄸㅢ", main.jamoize("ты"))
+        self.assertEqual("ㄷㅏ", main.jamoize("да"))
+        self.assertEqual("ㄹㅠㅂㅣㅁㅏㅑ", main.jamoize("любимая"))
 
 
 
