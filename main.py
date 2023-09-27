@@ -841,6 +841,16 @@ def triple_consonant_jamoize(word, number:int):
         return "쥬", "", ""
     elif string == "джя":
         return "쟈", "", ""
+    #лнц
+    elif string == "лнц":
+        return "", "", ""
+    #чч
+    elif string == "ччи":
+        return "치", "", ""
+    elif string == "ччу":
+        return "츄", "", ""
+    elif string == "ччы":
+        return "츼", "", ""
     else:
         raise ValueError("Not a triple consonant")
 
@@ -899,9 +909,9 @@ def jamo_to_text(text):
                 )
     return text
 
-def chosongulize(text):
+def word_chosongulize(text):
     return jamo_to_text(jamoize(text))
 
 if __name__ == "__main__":
     while True:
-        print(chosongulize(input("> ")))
+        print(word_chosongulize(input("> ")))
