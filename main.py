@@ -537,6 +537,39 @@ def double_consonant_jamoize(word, number:int):
             return "위", ""
         elif string == "вэ":
             return "웨", ""
+    #дд
+    if string == "дд":
+        try:
+            #а, о, у, ъ, ы, эの前
+            if (word[number+2] == "а"
+                or word[number+2] == "о"
+                or word[number+2] == "у"
+                or word[number+2] == "ъ"
+                or word[number+2] == "ы"
+                or word[number+2] == "э"):
+                return "ㄷ",""#ㄷ-
+            #е, ё, и, ю, я,ьの前
+            elif (word[number+2] == "е"
+                or word[number+2] == "ё"
+                or word[number+2] == "и"
+                or word[number+2] == "ю"
+                or word[number+2] == "я"
+                or word[number+2] == "ь"):
+                return "ㅈ",""#ㅈ-
+            #т, ц, чの前
+            elif (word[number+2] == "т"
+                or word[number+2] == "ц"
+                or word[number+2] == "ч"):
+                return "","" #∅
+            elif False: #接頭辞や語根のдд?
+                return "ㄷ","" #ㄷ-
+        except IndexError:
+            pass
+        return "드","" #드
+    #дж
+    elif string == "дж":
+        #その他
+        return "즈",""
     raise ValueError("Not a double consonant")
 
 
