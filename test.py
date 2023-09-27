@@ -6,8 +6,6 @@ import unittest
 class Test(unittest.TestCase):
 
     def test_(self):
-        """test method
-        """
         self.assertEqual(main.word_chosongulize("моя"), "모야")
         self.assertEqual(main.word_chosongulize("ямм"), "얌")
         self.assertEqual(main.word_chosongulize("будет"), "부제뜨")
@@ -26,6 +24,20 @@ class Test(unittest.TestCase):
         self.assertEqual(main.word_chosongulize("мир"), "미르", )
         self.assertEqual(main.word_chosongulize("путин"), "뿌찐", )
         self.assertEqual(main.word_chosongulize("земля"), "제믈랴", )
+
+    def test_글(self):
+        self.assertEqual(main.chosongulize(
+            "славься славься ты русь моя"),
+            "쓸라비쌰 쓸라비쌰 띄 루씨 모야", )
+        self.assertEqual(main.chosongulize(
+            "славься ты русская наша земля"),
+            "쓸라비쌰 띄 루쓰까야 나샤 제믈랴", )
+        self.assertEqual(main.chosongulize(
+            "да будет во веки веков сильна"),
+            "다 부제뜨 워 웨끼 웨꼬브 씰나", )
+        self.assertEqual(main.chosongulize(
+            "любимая наша страна"),
+            "류비마야 나샤 쓰뜨라나", )
 
 
 
