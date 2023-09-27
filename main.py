@@ -596,7 +596,23 @@ def double_consonant_jamoize(word, number:int):
         return "요", ""
     elif string == "ий":
         return "이", ""
-    
+    #кк
+    elif string == "кк":
+        try:
+            #母音字の前
+            if word[number+2] in russian_vowels:
+                return "ㄲ", "" #ㄲ-
+        except IndexError:
+            pass
+        try:
+            #母音字と無声音の間
+            if (word[number-1] in russian_vowels
+            and word[number+2] in russian_voiceless_consonants):
+                return "ㄱ", ""#-ㄱ
+        except IndexError:
+            pass
+        #その他
+        return "크", "" #크
     raise ValueError("Not a double consonant")
 
 
