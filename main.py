@@ -518,6 +518,27 @@ def consonant_jamoize(word, number:int):
     else:
         raise ValueError("Not a consonant")
 
+def double_consonant_jamoize(word, number:int):
+    try:
+        string = word[number]+word[number+1]
+    except IndexError:
+        raise ValueError("Not a double consonant")
+    #語頭в
+    if number == 0:
+        if string == "ва":
+            return "와", ""
+        elif string == "ве":
+            return "웨", ""
+        elif string == "ви":
+            return "의", ""
+        elif string == "во":
+            return "워", ""
+        elif string == "вь":
+            return "위", ""
+        elif string == "вэ":
+            return "웨", ""
+    raise ValueError("Not a double consonant")
+
 
 def jamoize(word):
     list_for_word = []
@@ -532,6 +553,11 @@ def jamoize(word):
     for i in range(len(word)):
         try:
             list_for_word[i] = consonant_jamoize(word, i)
+        except ValueError:
+            pass
+    for i in range(len(word)-1):
+        try:
+            list_for_word[i], list_for_word[i+1] = double_consonant_jamoize(word, i)
         except ValueError:
             pass
     word = "".join(list_for_word)
