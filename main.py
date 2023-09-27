@@ -688,6 +688,30 @@ def double_consonant_jamoize(word, number:int):
             pass
         #その他
         return "쁘"#쁘
+    #рр
+    elif string == "рр":
+        try:
+            #母音字とъ, ьの前
+            if (word[number+2] in russian_vowels
+                or word[number+2] == "ъ"
+                or word[number+2] == "ь"):
+                return "ㄹ" #ㄹ-
+        except IndexError:
+            pass
+        try:
+            #子音字の前
+            if word[number+2] in russian_consonants:
+                return "르"#르
+        except IndexError:
+            pass
+        try:
+            #語末
+            if number+1 == len(word)-1:
+                return "르"#르
+        except IndexError:
+            pass
+        #その他
+        return "르"#르 一応
     raise ValueError("Not a double consonant")
 
 
