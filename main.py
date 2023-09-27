@@ -208,7 +208,7 @@ def consonant_jamoize(word, number:int):
         try:
             #母音字と子音字前のм, нの間
             if (word[number-1] in russian_vowels
-                and (word[number+1] == "м" or word[number-2] == "н")
+                and (word[number+1] == "м" or word[number+1] == "н")
                 and word[number+2] in russian_consonants):
                 return "ㄹ르" #-ㄹ르
         except IndexError:
@@ -613,6 +613,63 @@ def double_consonant_jamoize(word, number:int):
             pass
         #その他
         return "크", "" #크
+    #лл
+    elif string == "лл":
+        try:
+            #語頭
+            if number == 0:
+                return "ㄹ", "" #ㄹ-
+            #нと母音字の間
+            elif (word[number-1] == "н"
+                and word[number+2] in russian_vowels):
+                return "ㄹ", "" #ㄹ-
+        except IndexError:
+            pass
+        try:
+            #母音字の間
+            if (word[number-1] in russian_vowels
+                and word[number+2] in russian_vowels):
+                return "ㄹㄹ", "" #-ㄹㄹ-
+        except IndexError:
+            pass
+        try:
+            #母音字と母音字前のьの間
+            if (word[number-1] in russian_vowels
+                and word[number+2] == "ь"
+                and word[number+3] in russian_vowels):
+                return "ㄹㄹ", "" #-ㄹㄹ-
+        except IndexError:
+            pass
+        try:
+            #子音字(н以外)と母音の間
+            if (word[number-1] in russian_consonants
+                and word[number-1] != "н"
+                and word[number+2] in russian_vowels):
+                return "ㄹㄹ", "" #-ㄹㄹ-
+        except IndexError:
+            pass
+        try:
+            #母音字と子音字前のм, нの間
+            if (word[number-1] in russian_vowels
+                and (word[number+2] == "м" or word[number+2] == "н")
+                and word[number+3] in russian_consonants):
+                return "ㄹ르", "" #-ㄹ르
+        except IndexError:
+            pass
+        try:
+            #語末のм, нの前
+            if (number+2 == len(word)-1
+                and (word[number+2] == "м" or word[number+2] == "н")):
+                return "ㄹ르", ""#-ㄹ르
+            #語末のьм, ьнの前
+            if (number+3 == len(word)-1
+                and word[number+2] == "ь"
+                and (word[number+3] == "м" or word[number+2] == "н")):
+                return "ㄹ르"#-ㄹ르
+        except IndexError:
+            pass
+        #その他
+        return "ㄹ"
     raise ValueError("Not a double consonant")
 
 
