@@ -876,7 +876,6 @@ def jamo_to_text(text):
     for i in range(len(text)):
         try:
             if text[i] in korean_vowel:
-                print(text[i-1])
                 if i==0:
                     text= "ㅇ"+text
                 elif text[i-1] in korean_vowel:
