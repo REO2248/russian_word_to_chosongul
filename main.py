@@ -712,6 +712,19 @@ def double_consonant_jamoize(word, number:int):
             pass
         #その他
         return "르", ""#르 一応
+    #сс
+    elif string == "сс":
+        try:
+            #母音字とъ, ьの前
+            if (word[number+2] in russian_vowels
+                or word[number+2] == "ъ"
+                or word[number+2] == "ь"):
+                return "ㅆ", "" #ㅆ-
+        except IndexError:
+            pass
+        #その他
+        return "쓰", "" #쓰
+
     #тт
     elif string == "тт":
         try:
