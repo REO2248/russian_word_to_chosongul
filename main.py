@@ -350,7 +350,7 @@ def consonant_jamoize(word, number:int):
                 return "ㅂ"#-ㅂ
         except IndexError:
             pass
-        #その他 一応
+        #その他
         return "쁘"#쁘
     #з
     elif word[number] == "з":
@@ -670,6 +670,24 @@ def double_consonant_jamoize(word, number:int):
             pass
         #その他
         return "ㄹ"
+    #пп
+    elif string == "пп":
+        try:
+            #母音字とьの前
+            if (word[number+2] in russian_vowels
+            or word[number+2] == "ь"):
+                return "ㅃ"#ㅃ-
+        except IndexError:
+            pass
+        try:
+            #母音字と無声音の間
+            if (word[number-1] in russian_vowels
+            and word[number+2] in russian_voiceless_consonants):
+                return "ㅂ"#-ㅂ
+        except IndexError:
+            pass
+        #その他
+        return "쁘"#쁘
     raise ValueError("Not a double consonant")
 
 
