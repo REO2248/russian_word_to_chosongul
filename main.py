@@ -817,6 +817,9 @@ def double_consonant_jamoize(word, number:int):
         return "쓔", ""
     elif string == "щь":
         return "쒸", ""
+    #нъ
+    elif string == "нъ":
+        return "ㄴ", ""#-ㄴ
     raise ValueError("Not a double consonant")
 
 
