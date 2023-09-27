@@ -802,6 +802,21 @@ def double_consonant_jamoize(word, number:int):
         return "슈", ""
     elif string == "шя":
         return "샤", ""
+    #щ
+    elif string == "ща":
+        return "쌰", ""
+    elif string == "ще":
+        return "쒜", ""
+    elif string == "щё":
+        return "쑈", ""
+    elif string == "щи":
+        return "쒸", ""
+    elif string == "що":
+        return "쑈", ""
+    elif string == "щу":
+        return "쓔", ""
+    elif string == "щь":
+        return "쒸", ""
     raise ValueError("Not a double consonant")
 
 
