@@ -738,7 +738,7 @@ def double_consonant_jamoize(word, number:int):
         except IndexError:
             pass
         #その他
-        return "뜨" #뜨
+        return "뜨", "" #뜨
     #母音字の前のтс
     elif (string == "тс"
         and word[number+2] in russian_vowels):
@@ -747,6 +747,31 @@ def double_consonant_jamoize(word, number:int):
     elif (string == "тс"
         and word[number+2] in russian_consonants):
         return "쯔", "" #쯔
+    #ч
+    elif string == "ча":
+        return "챠", ""
+    elif string == "че":
+        return "체", ""
+    elif string == "чё":
+        return "쵸", ""
+    elif string == "чи":
+        return "치", ""
+    elif string == "чо":
+        return "쵸", ""
+    elif string == "чу":
+        return "츄", ""
+    elif string == "чы":
+        return "츼", ""
+    elif string == "чэ":
+        return "체", ""
+    elif string == "чю":
+        return "츄", ""
+    elif string == "чя":
+        return "챠", ""
+    #чч
+    elif string == "чч":
+        #その他
+        return "츠", ""#츠
     raise ValueError("Not a double consonant")
 
 
