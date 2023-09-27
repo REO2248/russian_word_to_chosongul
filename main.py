@@ -418,6 +418,103 @@ def consonant_jamoize(word, number:int):
             pass
         #その他
         return "쯔"#쯔
+    #в
+    elif word[number] == "в":
+        #母音字と無声音の字の間
+        try:
+            if (word[number-1] in russian_vowels
+            and word[number+1] in russian_voiceless_consonants):
+                return "ㅂ"#-ㅂ
+        except IndexError:
+            pass
+        #子音字前で語頭
+        try:
+            if (number == 0
+            and word[number+1] in russian_consonants):
+                return "브"#브
+        except IndexError:
+            pass
+        #有声音の字の前
+        try:
+            if (word[number+1] in russian_consonants
+                and word[number+1] not in russian_voiceless_consonants):
+                return "브"#브
+        except IndexError:
+            pass
+        #語末
+        try:
+            if number == len(word)-1:
+                return "브"#브
+        except IndexError:
+            pass
+        #その他
+        return "ㅂ" #ㅂ-
+    #ж
+    elif word[number] == "ж":
+        #その他
+        return "쥬" #쥬
+    #ч
+    elif word[number] == "ч":
+        #その他
+        return "츠"#츠
+    #ш
+    elif word[number] == "ш":
+        #その他
+        return "슈"
+    #щ
+    elif word[number] == "щ":
+        #その他
+        return "쓔"
+
+    #й
+    elif word[number] == "й":
+        #その他
+        return "이"
+    #ъ
+    elif word[number] == "ъ":
+        #子音字(ж, н以外)の後
+        try:
+            if (word[number-1] in russian_consonants
+                and word[number-1] != "ж"
+                and word[number-1] != "н"):
+                return "ㅡ" #ㅡ
+        except IndexError:
+            pass
+    #ь
+    elif word[number] == "ь":
+        #語中のл, нと子音字の間
+        try:
+            if (word[number-1] == "л"
+                and number-1 != 0
+                and word[number+1] in russian_consonants):
+                return "" #∅
+            if (word[number-1] == "н"
+                and number-1 != 0
+                and word[number+1] in russian_consonants):
+                return "" #∅
+        except IndexError:
+            pass
+        #л, нの後ろの語末
+        try:
+            if (word[number-1] == "л"
+                and number == len(word)-1):
+                return "" #∅
+            if (word[number-1] == "н"
+                and number == len(word)-1):
+                return "" #∅
+        except IndexError:
+            pass
+        #前のлと語末のм, нの間 ?
+        try:
+            if (word[number-1] == "л"
+                and (word[number+1] == "м" or word[number+1] == "н")
+                and number+1 == len(word)-1):
+                return "" #∅
+        except IndexError:
+            pass
+        #その他
+        return "ㅣ" #ㅣ
+
     else:
         raise ValueError("Not a consonant")
 
