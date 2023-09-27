@@ -890,7 +890,8 @@ def jamo_to_text(text):
                     text= "ㅇ"+text
                 elif text[i-1] in korean_vowel:
                     text = text[:i]+"ㅇ"+text[i:]
-                elif (ord(text[i-1]) - 0xAC00)%28 == 0:
+                elif ((ord(text[i-1]) - 0xAC00)%28 == 0
+                    and ord(text[i-1])>=0xAC00):
                     text = text[:i]+"ㅇ"+text[i:]
         except ValueError:
             pass
@@ -912,6 +913,12 @@ def jamo_to_text(text):
 def word_chosongulize(text):
     return jamo_to_text(jamoize(text))
 
+def chosongulize(text):
+    text = text.split()
+    for i in range(len(text)):
+        text[i] = word_chosongulize(text[i])
+    return " ".join(text)
+
 if __name__ == "__main__":
     while True:
-        print(word_chosongulize(input("> ")))
+        print(chosongulize(input("> ")))
