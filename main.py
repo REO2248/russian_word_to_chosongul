@@ -822,6 +822,27 @@ def double_consonant_jamoize(word, number:int):
         return "ㄴ", ""#-ㄴ
     raise ValueError("Not a double consonant")
 
+def triple_consonant_jamoize(word, number:int):
+    #дж
+    string = word[number]+word[number+1]+word[number+2]
+    if string == "джа":
+        return "쟈", "", ""
+    elif string == "дже":
+        return "제", "", ""
+    elif string == "джи":
+        return "지", "", ""
+    elif string == "джо":
+        return "죠", "", ""
+    elif string == "джу":
+        return "쥬", "", ""
+    elif string == "джы":
+        return "지", "", ""
+    elif string == "джю":
+        return "쥬", "", ""
+    elif string == "джя":
+        return "쟈", "", ""
+    else:
+        raise ValueError("Not a triple consonant")
 
 def jamoize(word):
     list_for_word = []
@@ -843,6 +864,11 @@ def jamoize(word):
             list_for_word[i], list_for_word[i+1] = double_consonant_jamoize(word, i)
         except ValueError:
             pass
+    for i in range(len(word)-2):
+        try:
+            list_for_word[i], list_for_word[i+1], list_for_word[i+2] = triple_consonant_jamoize(word, i)
+        except ValueError:
+            pass
     word = "".join(list_for_word)
     return word
 
@@ -850,9 +876,12 @@ def jamo_to_text(text):
     for i in range(len(text)):
         try:
             if text[i] in korean_vowel:
+                print(text[i-1])
                 if i==0:
                     text= "ㅇ"+text
                 elif text[i-1] in korean_vowel:
+                    text = text[:i]+"ㅇ"+text[i:]
+                elif (ord(text[i-1]) - 0xAC00)%28 == 0:
                     text = text[:i]+"ㅇ"+text[i:]
         except ValueError:
             pass
